@@ -514,40 +514,26 @@ const vm = app.mount('#container2')
 
 	
 //
-const $ctx1 = document.querySelector("#Chart1");;
+const $ctx1 = document.querySelector("#Chart1");
 Chart1 = new Chart($ctx1, {
     type: 'bar',
     data: {
         labels: ['2020', '2021', '2022'],
         datasets: [{
-            label: ' ',
+            label: '_',
             data: [0,0,0],
-            backgroundColor: [
-                'rgba(255, 69, 0, 0.6)',
-                'rgba(255, 69, 0, 0.6)',
-                'rgba(255, 69, 0, 0.6)'
-            ],
-            borderColor: [
-                'rgba(255, 69, 0, 1)',
-                'rgba(255, 69, 0, 1)',
-                'rgba(255, 69, 0, 1)'
-            ],
-            borderWidth: 1
+			backgroundColor: 'rgba(255, 69, 0, 0.6)',
+            borderColor:   'rgba(255, 69, 0, 1)',
+            borderWidth: 1,
+			"yAxisID":"left"
         },
 		{
-            label: ' ',
+            label: '%',
             data: [50000,6888,7657],
-            backgroundColor: [
-                'rgba(255, 140, 0, 0.6)',
-                'rgba(255, 140, 0, 0.6)',
-                'rgba(255, 140, 0, 0.6)'
-            ],
-            borderColor: [
-                'rgba(255, 140, 0, 1)',
-                'rgba(255, 140, 0, 1)',
-                'rgba(255, 140, 0, 1)'
-            ],
-            borderWidth: 1
+            backgroundColor: 'rgba(255, 140, 0, 0.6)',
+            borderColor:   'rgba(255, 140, 0, 1)',
+            borderWidth: 1,
+			"yAxisID":"right"
         }]
     },
     options: {
@@ -568,8 +554,12 @@ Chart1 = new Chart($ctx1, {
                             scale_max = dataset._meta[Object.keys(dataset._meta)[0]].data[i]._yScale.maxHeight;
                         ctx.fillStyle = 'white';
                         var y_pos = model.y - 5;
+						debugger;
                         if ((scale_max - model.y) / scale_max >= 0.93)
                             y_pos = model.y + 20; 
+						if (dataset.label=="%")	
+                        ctx.fillText(dataset.data[i]+" %", model.x, y_pos);
+						if (dataset.label=="_")	
                         ctx.fillText(dataset.data[i], model.x, y_pos);
                     }
                 });               
@@ -585,7 +575,7 @@ Chart1 = new Chart($ctx1, {
             display: true,
             text: '',
             position: 'top',
-            fontSize: 24,
+            fontSize: 18,
             padding: 1,
 			fontColor: 'white',
 			fontStyle: 'normal'
@@ -594,14 +584,28 @@ Chart1 = new Chart($ctx1, {
             yAxes: [{
 				stacked: false,
 				display: false,
+				"id": "left",
+				"position": "left",
                 ticks: {
                     beginAtZero:true,
                     fontColor: '#2FA6DA',
-					fontSize: 18
+					fontSize: 14
+                }
+			       },
+				{
+				stacked: false,
+				display: false,
+				"id": "right",
+				"position": "right",
+                ticks: {
+                    beginAtZero:true,
+                    fontColor: '#2FA6DA',
+					fontSize: 14
                 },
             }],
+
           xAxes: [{
-			    stacked: false,
+			    stacked: true,
                 ticks: {
                     fontColor: '#2FA6DA',
 					fontSize: 24
