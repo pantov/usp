@@ -7,13 +7,11 @@
   $filename = 'data.xml';
   if (file_exists($filename)) {
 	date_default_timezone_set('UTC');
-	//$xml_update_time = 'Данные обновлены: ' . date("d.m.Y H:i:s.", filectime($filename));
-	// echo $xml_update_time;
 	date_default_timezone_set("Europe/Moscow");
 	$xml_update_time = date("d.m.Y-H:i:s", filectime($filename));
   }  
 if (isset($_GET['update'])) {
-  $xml="http://i48s-d-db1/ina/st/hs/sttst/data";
+  $xml="http://i48s-d-db1/ina/st/hs/sttst/data/3";
   $objxml = get_data($xml);
   if ($objxml) {$objxml->saveXML("data.xml");}
 };
@@ -25,7 +23,7 @@ if (isset($_GET['update'])) {
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <title>HR-аналитика</title>
+  <title>HR-аналитика (УСП)</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 <!--  
@@ -111,42 +109,45 @@ if (isset($_GET['update'])) {
 <div  class="card-header" style="flex:0">  			
 <div class="dropdown text-center">
     <button id="Btn1" type="button" class="btn-sm btn-secondary dropdown-toggle" data-toggle="dropdown" >
-    <h5 class="text-white">Исполнительный орган государственной власти</h5>
+    <h5 class="text-white">Учреждения социальной политики</h5>
     </button> 
     <div class="dropdown-menu">
-	  <?
-          $i=0;
+	<?
+          echo $obj;
+
+		  $i=0;
 		  $menu1=''; 
 		  
           foreach($obj->children() as $pck ) {
+	      $name=str_replace('"', '', $obj->pck[$i]->y);	
+		  $menu01=$name.'\','
+		  .$obj->pck[$i]->a1.','.$obj->pck[$i]->a2.','		  
+		  .$obj->pck[$i]->b1.','.$obj->pck[$i]->b2.','.$obj->pck[$i]->b3.','		  
+		  .$obj->pck[$i]->i1.','.$obj->pck[$i]->i2.','.$obj->pck[$i]->i11.','.$obj->pck[$i]->i12.','
+		  .$obj->pck[$i]->c1.','.$obj->pck[$i]->c2.','
+		  .$obj->pck[$i]->d1.','
+		  .$obj->pck[$i]->e1.','.$obj->pck[$i]->e2.','
+		  .$obj->pck[$i]->f1.','.$obj->pck[$i]->f2.','.$obj->pck[$i]->f11.','.$obj->pck[$i]->f12.','.$obj->pck[$i]->f21.','.$obj->pck[$i]->f22.','
+		  .$obj->pck[$i]->g1.','.$obj->pck[$i]->g2.','.$obj->pck[$i]->g11.','.$obj->pck[$i]->g12.','.$obj->pck[$i]->g21.','.$obj->pck[$i]->g22.','
+		  .$obj->pck[$i]->h1.','.$obj->pck[$i]->h2.','.$obj->pck[$i]->h3.','.$obj->pck[$i]->h4.','.$obj->pck[$i]->h5.','.$obj->pck[$i]->h11.','
+		  .$obj->pck[$i]->h12.','.$obj->pck[$i]->h13.','.$obj->pck[$i]->h14.','.$obj->pck[$i]->h15.','.$obj->pck[$i]->h21.','.$obj->pck[$i]->h22.','
+		  .$obj->pck[$i]->h23.','.$obj->pck[$i]->h24.','.$obj->pck[$i]->h25.','
+		  .$obj->pck[$i]->j1.','.$obj->pck[$i]->j2.','.$obj->pck[$i]->j3.','.$obj->pck[$i]->j11.','.$obj->pck[$i]->j21.','.$obj->pck[$i]->j23.','
+		  .$obj->pck[$i]->j21.','.$obj->pck[$i]->j22.','.$obj->pck[$i]->j23.','			
+		  .$obj->pck[$i]->k0.','.$obj->pck[$i]->k1.','.$obj->pck[$i]->k2.','.$obj->pck[$i]->k3.','.$obj->pck[$i]->k4.','.$obj->pck[$i]->k5.','
+		  .$obj->pck[$i]->l1.','.$obj->pck[$i]->l2.','.$obj->pck[$i]->l11.','.$obj->pck[$i]->l12.','.$obj->pck[$i]->l21.','.$obj->pck[$i]->l22.','.'0';
+			
 		  if ($i<1) { 
 		  
-          $menu1.='<a class="dropdown-item" href="#" onclick="Paint1(\''
-		  .$obj->pck[$i]->y.'\','
-		  .$obj->pck[$i]->a1.','.$obj->pck[$i]->a2.','		  
-		  .$obj->pck[$i]->b1.','.$obj->pck[$i]->b2.','.$obj->pck[$i]->b3.','		  
-		  .$obj->pck[$i]->c1.','.$obj->pck[$i]->c2.','		  
-		  .$obj->pck[$i]->d1.','.$obj->pck[$i]->e1.','		  
-		  .$obj->pck[$i]->f1.','.$obj->pck[$i]->f2.','.$obj->pck[$i]->f3.','		  
-		  .$obj->pck[$i]->g1.','.$obj->pck[$i]->g2.','		  
-		  .$obj->pck[$i]->h1.','.$obj->pck[$i]->h2.','		  
-		  .$obj->pck[$i]->i1.','.$obj->pck[$i]->i2.','.$obj->pck[$i]->i3.','.$obj->pck[$i]->i4.','
-		  .$obj->pck[$i]->j1.','.$obj->pck[$i]->j2.','.$obj->pck[$i]->j3.','.$obj->pck[$i]->j4.','.$obj->pck[$i]->j5.','.$obj->pck[$i]->j6.','.$obj->pck[$i]->j7.','.$obj->pck[$i]->j8.','.$obj->pck[$i]->j9.','		  
-          .$obj->pck[$i]->k1.','.$obj->pck[$i]->k2.','.$obj->pck[$i]->k3.','.$obj->pck[$i]->k4.','.$obj->pck[$i]->k5.	  
+          $menu1=$menu1.'<a class="dropdown-item" href="#" onclick="Paint1(\''
+		  .$menu01.	  
 		  ')" > <b>'.$pck->y.'</b></a> <div class="dropdown-divider"></div>' ;
+		  
+		  $menu100="Paint1('".$menu01.")";
+
 		  } else {
-          $menu1.='<a class="dropdown-item" href="#" onclick="Paint1(\''
-		  .$obj->pck[$i]->y.'\','
-		  .$obj->pck[$i]->a1.','.$obj->pck[$i]->a2.','		  
-		  .$obj->pck[$i]->b1.','.$obj->pck[$i]->b2.','.$obj->pck[$i]->b3.','		  
-		  .$obj->pck[$i]->c1.','.$obj->pck[$i]->c2.','		  
-		  .$obj->pck[$i]->d1.','.$obj->pck[$i]->e1.','		  
-		  .$obj->pck[$i]->f1.','.$obj->pck[$i]->f2.','.$obj->pck[$i]->f3.','		  
-		  .$obj->pck[$i]->g1.','.$obj->pck[$i]->g2.','		  
-		  .$obj->pck[$i]->h1.','.$obj->pck[$i]->h2.','		  
-		  .$obj->pck[$i]->i1.','.$obj->pck[$i]->i2.','.$obj->pck[$i]->i3.','.$obj->pck[$i]->i4.','
-		  .$obj->pck[$i]->j1.','.$obj->pck[$i]->j2.','.$obj->pck[$i]->j3.','.$obj->pck[$i]->j4.','		  
-          .$obj->pck[$i]->k1.','.$obj->pck[$i]->k2.','.$obj->pck[$i]->k3.','.$obj->pck[$i]->k4.','.$obj->pck[$i]->k5.	  
+          $menu1=$menu1.'<a class="dropdown-item" href="#" onclick="Paint1(\''
+		  .$menu01.	  
 		  ')" >'.$pck->y.'</a>';		  
 		  }
 		  $i=$i+1;
@@ -168,7 +169,7 @@ if (isset($_GET['update'])) {
        <div class="col-lg-12"><!-- i0 -->
 	   		<p></p>
 			<div id="card_i1" class="card border bg-dark text-white  rounded" >
-			<div  class="card-header text-center"> <h4> АНАЛИТИКА<br>численности<br>и<br>заработной платы<br>за 2020 – 2022 гг</h4> </div>
+			<div  class="card-header text-center"> <h4> АНАЛИТИКА<br>численности<br>и<br>заработной платы<br>за 2021 – 2023 гг</h4> </div>
 			 
 			</div>	
 			<p></p>	  
@@ -188,14 +189,14 @@ if (isset($_GET['update'])) {
 					<td><center><p>Все работники <br> (за исключением АУП)</p></center></td>
 				  </tr>
 				  <tr>
-					<td colspan="2" align="center"><h5>11 мес. 2021 года</h5></td>
+					<td colspan="2" align="center"><h5>1 квартал 2022 года</h5></td>
 				  </tr>				  
 				  <tr>
 					<td><center><h3 id="i1"> <animated-integer :value="i1"></animated-integer> </h3></center></td>
 					<td><center><h3 id="i2"> <animated-integer :value="i2"></animated-integer> </h3></center></td>
 				  </tr>
 				  <tr>
-					<td colspan="2" align="center"><h5>11 мес. 2022 года</h5></td>
+					<td colspan="2" align="center"><h5>1 квартал 2023 года</h5></td>
 				  </tr>				  
 				  <tr>
 					<td><center><h3 id="i3"> <animated-integer :value="i3"></animated-integer> </h3></center></td>
@@ -238,7 +239,7 @@ if (isset($_GET['update'])) {
 				<table text-align="center" style="width:100%">
 				  <tr>
 					<td><center><h5>Руководители</h5></center></td>
-					<td><center><h5>Отраслевое <br> специалисты</h5></center></td>
+					<td><center><h5>Отраслевое специалисты</h5></center></td>
 					<td><center><h5>Прочие</h5></center></td>
 				  </tr>
 				  <tr>
@@ -256,7 +257,7 @@ if (isset($_GET['update'])) {
        <div class="col-lg-4"><!-- c -->
 			<p></p>
 			<div class="card border bg-dark text-white  rounded" >
-			<div  class="card-header text-center"> <h4> Текучесть, чел. </h4> </div>
+			<div  class="card-header text-center"> <h4 id="tec"> Текучесть за 2023 год, чел.</h4></div>
 				<table text-align="center" style="width:100%">
 				  <tr>
 					<td><center><h5>Назначено</h5></center></td>
@@ -346,7 +347,7 @@ if (isset($_GET['update'])) {
         <div class="col-lg-4"><!-- Chart4 -->
 		  <p></p>
 			<div id="card_j1" class="card border bg-dark text-white  rounded" >
-			<div  class="card-header text-center"> <h4> ПДД в структуре<br>заработной платы</h4> </div>
+			<div  class="card-header text-center"> <h4> ПДД в структуре заработной платы</h4> </div>
      	     <div class="container">
               <canvas id="Chart4" width="200" height="100"></canvas>
 	          <p></p>
@@ -358,7 +359,7 @@ if (isset($_GET['update'])) {
         <div class="col-lg-4"><!-- Chart5 -->
 		<p></p>
 			<div  class="card border bg-dark text-white  rounded" >
-			<div  class="card-header text-center"> <h4>Работники по диапазонам<br>заработной платы, чел.</h4></div>
+			<div  class="card-header text-center"> <h4>Работники по диапазонам<br>заработной платы, чел. (т.руб.)</h4></div>
      	     <div class="container">
               <canvas id="Chart5" width="200" height="100"></canvas>
 	          <p></p>
@@ -384,6 +385,8 @@ if (isset($_GET['update'])) {
   </div>
 </div>
 </div>
+
+
 <script>
 
 const app = Vue.createApp({
@@ -438,28 +441,14 @@ app.component('animated-integer', {
 const vm = app.mount('#container2')
 </script>
 
-    <script type="text/javascript">
+	<script type="text/javascript">
 
-	
+     
       $(document).ready(function() {
-        <?
-		  $Firts1='Paint1(\''
-		  .$obj->pck[0]->y.'\','
-		  .$obj->pck[0]->a1.','.$obj->pck[0]->a2.','		  
-		  .$obj->pck[0]->b1.','.$obj->pck[0]->b2.','.$obj->pck[0]->b3.','		  
-		  .$obj->pck[0]->c1.','.$obj->pck[0]->c2.','		  
-		  .$obj->pck[0]->d1.','.$obj->pck[0]->e1.','		  
-		  .$obj->pck[0]->f1.','.$obj->pck[0]->f2.','.$obj->pck[0]->f3.','		  
-		  .$obj->pck[0]->g1.','.$obj->pck[0]->g2.','		  
-		  .$obj->pck[0]->h1.','.$obj->pck[0]->h2.','		  
-		  .$obj->pck[0]->i1.','.$obj->pck[0]->i2.','.$obj->pck[0]->i3.','.$obj->pck[0]->i4.','
-		  .$obj->pck[0]->j1.','.$obj->pck[0]->j2.','.$obj->pck[0]->j3.','.$obj->pck[0]->j4.','.$obj->pck[0]->j5.','.$obj->pck[0]->j6.','.$obj->pck[0]->j7.','.$obj->pck[0]->j8.','.$obj->pck[0]->j9.','		  
-          .$obj->pck[0]->k1.','.$obj->pck[0]->k2.','.$obj->pck[0]->k3.','.$obj->pck[0]->k4.','.$obj->pck[0]->k5.
-		  ')';
-          echo $Firts1;
-		  ?>    
-	//  $('#name2').innerHTML = '123';
+ 
 	
+	 <? echo $menu100 ?>
+
 	  var maxHeight = 0;
 
 	  let elem_j1 = document.getElementById("card_j1");
@@ -474,646 +463,45 @@ const vm = app.mount('#container2')
 	  var card_menu1_Height = $('#card_menu1').height();
 	  
 	 // if (coords_menu1.left < coords_j1.left) {
-	//	  var maxHeight = (card_menu1_Height + (coords_j1.bottom - coords_i1.bottom)*1.09);
+		//  var maxHeight = (card_menu1_Height + (coords_j1.bottom - coords_i1.bottom)*1.09);
 	//	  $('#card_menu1').css('min-height', maxHeight);
 	 // };
-	  
 
       });
 	
-
-
-//
-//Chart.defaults.font.size = 20;
-//Chart.defaults.global.font.size = 20;
-const $ctx1 = document.querySelector("#Chart1");;
-Chart1 = new Chart($ctx1, {
-    type: 'bar',
-    data: {
-        labels: ['2020', '2021', '2022'],
-        datasets: [{
-            label: '1',
-            data: [103,105,100],
-            backgroundColor: 'rgba(255, 69, 0, 0.6)',
-            borderColor: 'rgba(255, 69, 0, 1)',
-            borderWidth: 0
-        },
-		{   label: '2',
-			hidden: true,
-            data: [100,102,98],
-            backgroundColor: 'rgba(255, 69, 0, 0.6)',
-            borderColor: 'rgba(255, 69, 0, 1)',
-            borderWidth: 0
-        }]
-    },
-    options: {
-	   hover: {
-        animationDuration: 1
-        },
-        animation: {
-            duration: 500,
-            easing: "easeOutQuart",
-            onComplete: function () {
-                var ctx = this.chart.ctx;
-				ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontFamily, 'normal', Chart.defaults.global.defaultFontFamily);
-                ctx.textAlign = 'center';
-                ctx.textBaseline = 'bottom';
-				//ctx.font = '20px "FontFamily Bitter"';
-				//ctx.font.size = '20px';
-               this.data.datasets.forEach(function (dataset) {
-                    for (var i = 0; i < dataset.data.length; i++) {
-                        var model = dataset._meta[Object.keys(dataset._meta)[0]].data[i]._model,
-                            scale_max = dataset._meta[Object.keys(dataset._meta)[0]].data[i]._yScale.maxHeight;
-                        ctx.fillStyle = 'white';
-						//ctx.font = 'bold 12px "Helvetica Neue", "Helvetica", "Arial", sans-serif';
-						debugger;
-                        var y_pos = model.y - 5;
-                        if ((scale_max - model.y) / scale_max >= 0.93)
-                            y_pos = model.y + 20; 
-						if (dataset.label=="1")	
-                        ctx.fillText(dataset.data[i], model.x, y_pos);
-						if (dataset.label=="2")	{
-							y_pos = model.y + 50;
-							ctx.fillText(dataset.data[i]+" %", model.x, y_pos);
-						}
-                        	
-                       // ctx.fillText(dataset.data[i], model.x, y_pos);
-                    }
-                });   
-				//debugger;            
-            }
-        },				
-		legend: {
-                display: false,
-                labels: {
-                    fontColor: 'white',
-					fontSize: 20,
-					padding: 1
-                }
-            },
-		tooltips: {
-            enabled: false
-        },
-        title: {
-            display: false,
-            text: '',
-            position: 'top',
-            fontSize: 24,
-            padding: 1,
-			fontColor: 'white',
-			fontStyle: 'normal'
-          },
-		annotation: {
-        annotations: [
-          {
-            type: "line",
-            mode: "horizontal",
-            scaleID: "y-axis-0",
-            value: 0,
-            borderColor: '#2FA6DA',
-			borderWidth: 3,
-          }
-        ]
-      },
-		  scales: {
-            yAxes: [{
-				display: false,
-                ticks: {
-                    beginAtZero:true,
-                    fontColor: '#2FA6DA',
-					fontSize: 18
-                },
-            }],
-          xAxes: [{
-			   // stacked: true,
-                ticks: {
-                    fontColor: '#2FA6DA',
-					fontSize: 24
-                },
-            }]
-        } 
-    }
-});	
-
-//
-const $ctx2 = document.querySelector("#Chart2");;
-Chart2 = new Chart($ctx2, {
-    type: 'bar',
-    data: {
-        labels: ['2020', '2021', '2022'],
-        datasets: [{
-            label: '1',
-            data: [52000,55000,62000],
-            backgroundColor: 'rgba(255, 69, 0, 0.6)',
-            borderColor: 'rgba(255, 69, 0, 1)',
-            borderWidth: 0
-        },
-		{   label: '2',
-			hidden: true,
-            data: ["100.0","102.0","106.0"],
-            backgroundColor: 'rgba(255, 69, 0, 0.6)',
-            borderColor: 'rgba(255, 69, 0, 1)',
-            borderWidth: 0
-        }]
-    },
-    options: {
-	   hover: {
-        animationDuration: 1
-        },
-        animation: {
-            duration: 500,
-            easing: "easeOutQuart",
-            onComplete: function () {
-                var ctx = this.chart.ctx;
-                ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontFamily, 'normal', Chart.defaults.global.defaultFontFamily);
-                ctx.textAlign = 'center';
-                ctx.textBaseline = 'bottom';
-               this.data.datasets.forEach(function (dataset) {
-                    for (var i = 0; i < dataset.data.length; i++) {
-                        var model = dataset._meta[Object.keys(dataset._meta)[0]].data[i]._model,
-                            scale_max = dataset._meta[Object.keys(dataset._meta)[0]].data[i]._yScale.maxHeight;
-                        ctx.fillStyle = 'white';
-                        var y_pos = model.y - 5;
-                        if ((scale_max - model.y) / scale_max >= 0.93)
-                            y_pos = model.y + 20; 
-						if (dataset.label=="1")	
-                        ctx.fillText(dataset.data[i], model.x, y_pos);
-						if (dataset.label=="2")	{
-							y_pos = model.y - 1;
-							//y_pos =  1;
-							//debugger;  
-							ctx.fillText(dataset.data[i]+" %", model.x, y_pos);
-						}
-                        	
-                       // ctx.fillText(dataset.data[i], model.x, y_pos);
-                    }
-                });   
-				          
-            }
-        },				
-        legend: {
-            display: false
-        },
-		tooltips: {
-            enabled: false
-        },
-        title: {
-            display: false,
-            text: '',
-            position: 'top',
-            fontSize: 24,
-            padding: 1,
-			fontColor: 'white',
-			fontStyle: 'normal'
-          },
-		  annotation: {
-        annotations: [
-          {
-            type: "line",
-            mode: "horizontal",
-            scaleID: "y-axis-0",
-            value: 0,
-            borderColor: '#2FA6DA',
-			borderWidth: 3,
-          }
-        ]
-      },
-        scales: {
-            yAxes: [{
-				display: false,
-                ticks: {
-                    beginAtZero:true,
-                    fontColor: '#2FA6DA',
-					fontSize: 18
-                },
-            }],
-          xAxes: [{
-			   // stacked: true,
-                ticks: {
-                    fontColor: '#2FA6DA',
-					fontSize: 24
-                },
-            }]
-        } 
-    }
-});	
-
-
-//
-const $ctx3 = document.querySelector("#Chart3");
-Chart3 = new Chart($ctx3, {
-    type: 'bar',
-    data: {
-        labels: ['2020', '2021', '2022'],
-        datasets: [{
-            label: '1',
-            data: [54,45,45],
-			backgroundColor: 'Green',
-            borderColor:   'Green',
-            borderWidth: 1,
-			"yAxisID":"left"
-        },
-		{
-            label: '2',
-            data: [10,18,10],
-            backgroundColor: 'yellow',
-            borderColor:   'yellow',
-            borderWidth: 1,
-			"yAxisID":"left"
-        },
-		{
-            label: '3',
-            data: [28,32,40],
-            backgroundColor: 'Red',
-            borderColor:   'Red',
-            borderWidth: 1,
-			"yAxisID":"left"
-        },
-		{
-            label: '4',
-            data: [10,15,5],
-            backgroundColor: 'Blue',
-            borderColor:   'Blue',
-            borderWidth: 1,
-			"yAxisID":"left"
-        }]
-    },
-    options: {
-	   hover: {
-        animationDuration: 1
-        },
-        animation: {
-            duration: 500,
-            easing: "easeOutQuart",
-            onComplete: function () {
-                var ctx = this.chart.ctx;
-                ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontFamily, 'normal', Chart.defaults.global.defaultFontFamily);
-                ctx.textAlign = 'center';
-                ctx.textBaseline = 'bottom';
-                this.data.datasets.forEach(function (dataset) {
-                    for (var i = 0; i < dataset.data.length; i++) {
-                        var model = dataset._meta[Object.keys(dataset._meta)[0]].data[i]._model,
-                            scale_max = dataset._meta[Object.keys(dataset._meta)[0]].data[i]._yScale.maxHeight;
-                        ctx.fillStyle = 'white';
-                        var y_pos = model.y + 20;
-						//debugger;
-                       // if ((scale_max - model.y) / scale_max >= 0.93)
-                        //    y_pos = model.y + 20; 
-						//if (dataset.label=="%")	
-                        //ctx.fillText(dataset.data[i]+" %", model.x, y_pos);
-						//if (dataset.label=="_")	
-                        ctx.fillText(dataset.data[i], model.x, y_pos);
-                    }
-                });               
-            }
-        },		
-		legend: {
-                display: true,
-                labels: {
-                    fontColor: 'white',
-					fontSize: 20,
-					padding: 1
-                }
-            },
-		tooltips: {
-            enabled: false
-        },
-        title: {
-            display: false,
-            text: '',
-            position: 'top',
-            fontSize: 18,
-            padding: 1,
-			fontColor: 'white',
-			fontStyle: 'normal'
-        },
-		annotation: {
-        annotations: [
- 		  {
-            type: "line",
-            mode: "horizontal",
-            scaleID: "left",
-            value: 0,
-            borderColor: '#2FA6DA',
-			borderWidth: 3,
-          }
-        ]
-      },
-        scales: {
-            yAxes: [{
-				stacked: true,
-				display: false,
-				"id": "left",
-				"position": "left",
-                ticks: {
-                    beginAtZero:true,
-                    fontColor: '#2FA6DA',
-					fontSize: 14
-                }
-			       },
-				{
-				stacked: true,
-				display: false,
-				"id": "right",
-				"position": "right",
-                ticks: {
-                    beginAtZero:true,
-                    fontColor: '#2FA6DA',
-					fontSize: 14
-                },
-            }],
-          xAxes: [{
-			    stacked: true,
-                ticks: {
-                    fontColor: '#2FA6DA',
-					fontSize: 24
-                },
-            }]
-        } 
-    }
-});	
-
-//
-const $ctx4 = document.querySelector("#Chart4");
-Chart3 = new Chart($ctx4, {
-    type: 'bar',
-    data: {
-        labels: ['2020', '2021', '2022'],
-        datasets: [{
-            label: '- ПДД     ',
-            data: [2,3,8],
-			backgroundColor: '#bf9000',
-            borderColor:   '#bf9000',
-            borderWidth: 1,
-			"yAxisID":"left"
-        },
-		{
-            label: ' - бюджет    ',
-            data: [88,87,82],
-            backgroundColor: '#fe5f35',
-            borderColor:   '#fe5f35',
-            borderWidth: 1,
-			"yAxisID":"left"
-        }]
-    },
-    options: {
-	   hover: {
-        animationDuration: 1
-        },
-        animation: {
-            duration: 500,
-            easing: "easeOutQuart",
-            onComplete: function () {
-                var ctx = this.chart.ctx;
-                ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontFamily, 'normal', Chart.defaults.global.defaultFontFamily);
-                ctx.textAlign = 'center';
-                ctx.textBaseline = 'bottom';
-                this.data.datasets.forEach(function (dataset) {
-                    for (var i = 0; i < dataset.data.length; i++) {
-                        var model = dataset._meta[Object.keys(dataset._meta)[0]].data[i]._model,
-                            scale_max = dataset._meta[Object.keys(dataset._meta)[0]].data[i]._yScale.maxHeight;
-                        ctx.fillStyle = 'white';
-                        var y_pos = model.y + 20;
-						//debugger;
-                       // if ((scale_max - model.y) / scale_max >= 0.93)
-                        //    y_pos = model.y + 20; 
-						//if (dataset.label=="%")	
-                        //ctx.fillText(dataset.data[i]+" %", model.x, y_pos);
-						//if (dataset.label=="_")	
-                        ctx.fillText(dataset.data[i], model.x, y_pos);
-                    }
-                });               
-            }
-        },		
-		legend: {
-                display: true,
-                labels: {
-                    fontColor: 'white',
-					fontSize: 20,
-					padding: 1
-                }
-            },
-		tooltips: {
-            enabled: false
-        },
-        title: {
-            display: false,
-            text: '',
-            position: 'top',
-            fontSize: 18,
-            padding: 1,
-			fontColor: 'white',
-			fontStyle: 'normal',
-			padding: 1
-        },
-		annotation: {
-        annotations: [
- 		  {
-            type: "line",
-            mode: "horizontal",
-            scaleID: "left",
-            value: 1,
-            borderColor: '#2FA6DA',
-			borderWidth: 3,
-          }
-        ]
-      },
-        scales: {
-            yAxes: [{
-				//stacked: true,
-				display: false,
-				"id": "left",
-				"position": "left",
-                ticks: {
-                    beginAtZero:true,
-                    fontColor: '#2FA6DA',
-					fontSize: 14
-                }
-			       },
-				{
-			//	stacked: true,
-				display: false,
-				"id": "right",
-				"position": "right",
-                ticks: {
-                    beginAtZero:true,
-                    fontColor: '#2FA6DA',
-					fontSize: 14
-                },
-            }],
-          xAxes: [{
-			   // stacked: true,
-                ticks: {
-                    fontColor: '#2FA6DA',
-					fontSize: 24
-                },
-            }]
-        } 
-    }
-});	
-
-
-//
-const $ctx5 = document.querySelector("#Chart5");
-Chart5 = new Chart($ctx5, {
-    type: 'bar',
-    data: {
-        labels: ['2020', '2021', '2022'],
-        datasets: [{
-            label: '_',
-            data: [50,70,300],
-			backgroundColor: 'rgba(255, 69, 0, 0.6)',
-            borderColor:   'rgba(255, 69, 0, 1)',
-            borderWidth: 1,
-			"yAxisID":"left"
-        },
-		{
-            label: '%',
-            data: [50000,6888,7657],
-            backgroundColor: 'rgba(255, 140, 0, 0.6)',
-            borderColor:   'rgba(255, 140, 0, 1)',
-            borderWidth: 1,
-			"yAxisID":"right"
-        }]
-    },
-    options: {
-	   hover: {
-        animationDuration: 1
-        },
-        animation: {
-            duration: 500,
-            easing: "easeOutQuart",
-            onComplete: function () {
-                var ctx = this.chart.ctx;
-                ctx.font = Chart.helpers.fontString(Chart.defaults.global.defaultFontFamily, 'normal', Chart.defaults.global.defaultFontFamily);
-                ctx.textAlign = 'center';
-                ctx.textBaseline = 'bottom';
-                this.data.datasets.forEach(function (dataset) {
-                    for (var i = 0; i < dataset.data.length; i++) {
-                        var model = dataset._meta[Object.keys(dataset._meta)[0]].data[i]._model,
-                            scale_max = dataset._meta[Object.keys(dataset._meta)[0]].data[i]._yScale.maxHeight;
-                        ctx.fillStyle = 'white';
-                        var y_pos = model.y - 5;
-						//debugger;
-                        if ((scale_max - model.y) / scale_max >= 0.93)
-                            y_pos = model.y + 20; 
-						if (dataset.label=="%")	
-                        ctx.fillText(dataset.data[i]+" %", model.x, y_pos);
-						if (dataset.label=="_")	
-                        ctx.fillText(dataset.data[i], model.x, y_pos);
-                    }
-                });               
-            }
-        },		
-        legend: {
-            display: false
-        },
-		tooltips: {
-            enabled: false
-        },
-        title: {
-            display: false,
-            text: '',
-            position: 'top',
-            fontSize: 18,
-            padding: 1,
-			fontColor: 'white',
-			fontStyle: 'normal'
-        },
-		annotation: {
-        annotations: [
-          {
-            type: "line",
-            mode: "vertical",
-            scaleID: "x-axis-0",
-            value: "2021",
-            borderColor: "yellow",
-			borderWidth: 5,
-            label: {
-              content: "TODAY",
-             // enabled: true,
-              position: "top"
-            }
-          },
-		  {
-            type: "line",
-            mode: "horizontal",
-            scaleID: "left",
-            value: 0,
-            borderColor: '#2FA6DA',
-			borderWidth: 3,
-          }
-        ]
-      },
-        scales: {
-            yAxes: [{
-				stacked: false,
-				display: false,
-				"id": "left",
-				"position": "left",
-                ticks: {
-                    beginAtZero:true,
-                    fontColor: '#2FA6DA',
-					fontSize: 14
-                }
-			       },
-				{
-				stacked: false,
-				display: false,
-				"id": "right",
-				"position": "right",
-                ticks: {
-                    beginAtZero:true,
-                    fontColor: '#2FA6DA',
-					fontSize: 14
-                },
-            }],
-          xAxes: [{
-			    stacked: true,
-                ticks: {
-                    fontColor: '#2FA6DA',
-					fontSize: 24
-                },
-            }]
-        } 
-    }
-});	
- 
-
+   
     //	
 	  
     </script>
-	
-	<script>
-    function Paint1(name,a1,a2,b1,b2,b3,c1,c2,d1,e1,f1,f2,f3,g1,g2,h1,h2,i1,i2,i3,i4,j1,j2,j3,j4,j5,j6,j7,j8,j9,k1,k2,k3,k4,k5) {
+	 <script src="charts.js" type="text/javascript"></script>
 
+
+	<script>
+    function Paint1(name,a1,a2,b1,b2,b3,i1,i2,i11,i12,c1,c2,d1,e1,e2,f1,f2,f11,f12,f21,f22,g1,g2,g11,g12,g21,g22,h1,h2,h3,h4,h5,h11,h12,h13,h14,h15,h21,h22,h23,h24,h25,j1,j2,j3,j11,j12,j13,j21,j22,j23,k0,k1,k2,k3,k4,k5,l1,l2,l11,l12,l21,l22,tmp0)
+	{
+		//debugger;
 	document.getElementById('name1').innerHTML = name;
-	document.getElementById('a1').innerHTML = a1;
-	document.getElementById('a2').innerHTML = a2;
-	document.getElementById('b1').innerHTML = b1;
-	document.getElementById('b2').innerHTML = b2;
-	document.getElementById('b3').innerHTML = b3;
+	document.getElementById('a1').innerHTML = numberWithSpaces(a1);
+	document.getElementById('a2').innerHTML = numberWithSpaces(a2);
+	document.getElementById('b1').innerHTML = numberWithSpaces(b1);
+	document.getElementById('b2').innerHTML = numberWithSpaces(b2);
+	document.getElementById('b3').innerHTML = numberWithSpaces(b3);
 	document.getElementById('c1').innerHTML = c1;
 	document.getElementById('c2').innerHTML = c2;  		
    	document.getElementById('d1').innerHTML = d1;
 	document.getElementById('e1').innerHTML = e1;
-	//document.getElementById('f1').innerHTML = f1;
-	//document.getElementById('f2').innerHTML = f2;	
-	//document.getElementById('f3').innerHTML = f3;
-	//document.getElementById('g1').innerHTML = g1+"\/"+g2;	
-	//document.getElementById('h1').innerHTML = h1;
-	//document.getElementById('h2').innerHTML = h2;
-	//document.getElementById('i1').innerHTML = numberWithSpaces(i1);
-	//document.getElementById('i2').innerHTML = numberWithSpaces(i2);
-	//document.getElementById('i3').innerHTML = numberWithSpaces(i3);
-	//document.getElementById('i4').innerHTML = numberWithSpaces(i4);
-	vm.i1=i1;
-	vm.i2=i2;
-	vm.i3=i3;
-	vm.i4=i4;
-	//PaintChart1(j1,j2,j3,j4,j5,j6,j7,j8,j9);
-	//PaintChart2(k1,k2,k3,k4,k5);
-	//debugger;
+	document.getElementById('e2').innerHTML = e2;
+	vm.i1=i11;
+	vm.i2=i12;
+	vm.i3=i1;
+	vm.i4=i2;
+
+	PaintChart1(f1,f2,f11,f12,f21,f22);
+	PaintChart2(g1,g2,g11,g12,g21,g22);
+	PaintChart3(h1,h2,h3,h4,h5,h11,h12,h13,h14,h15,h21,h22,h23,h24,h25);
+	PaintChart4(j1,j2,j3,j11,j12,j13,j21,j22,j23);
+	PaintChart5(k0,k1,k2,k3,k4,k4);
+	PaintChart6(l1,l2,l11,l12,l21,l22);	
     }
 	
    function numberWithSpaces(x) {
@@ -1133,21 +521,44 @@ Chart5 = new Chart($ctx5, {
 	   };
     </script>
 
-    <script type="text/javascript">
+<script type="text/javascript">
 
-function PaintChart1(j1,j2,j3,j4,j5,j6) {
-   // Chart1.data.datasets[0].data = [j1,j2,j3];
-//	Chart1.data.datasets[1].data = [j4,j5,j6];
-  //  Chart1.update();
-}
+function PaintChart1(f1,f2,f11,f12,f21,f22) {
+   Chart1.data.datasets[0].data = [f21,f11,f1];
+   Chart1.data.datasets[1].data = [f22,f12,f2];
+   Chart1.update();
+};
+function PaintChart2(g1,g2,g11,g12,g21,g22) {
+   Chart2.data.datasets[0].data = [g21,g11,g1];
+   Chart2.data.datasets[1].data = [g22,g12,g2];
+   Chart2.update();
+};
+function PaintChart3(h1,h2,h3,h4,h5,h11,h12,h13,h14,h15,h21,h22,h23,h24,h25) {
+   Chart3.data.datasets[0].data = [h22,h12,h2];
+   Chart3.data.datasets[1].data = [h23,h13,h3];
+   Chart3.data.datasets[2].data = [h24,h14,h4];
+   Chart3.data.datasets[3].data = [h25,h15,h5];
+   Chart3.update();
+  
+};
 
-
-function PaintChart2(k1,k2,k3,k4,k5) {
-  //  Chart2.data.datasets[0].data = [k1,k2,k3,k4,k5];
-  //  Chart2.update();
-}
-
-
+function PaintChart4(j1,j2,j3,j11,j12,j13,j21,j22,j23) {
+   Chart4.data.datasets[1].data = [j22,j12,j2];
+   Chart4.data.datasets[0].data = [j23,j13,j3];
+   Chart4.update();
+   //debugger;
+};
+function PaintChart5(k0,k1,k2,k3,k4,k4) {
+   Chart5.data.datasets[0].data = [k1,k2,k3,k4,k4];
+   Chart5.update();
+   //debugger;
+};
+function PaintChart6(l1,l2,l11,l12,l21,l22) {
+   Chart6.data.datasets[0].data = [l21,l11,l1];
+   Chart6.data.datasets[1].data = [l22,l12,l2];
+   Chart6.update();
+   //debugger;
+};
     </script>
 
  <footer>
