@@ -118,10 +118,8 @@ if (isset($_GET['update'])) {
     </button> 
     <div class="dropdown-menu">
 	<?
-         
-      $gods=substr($obj->pck[0]->date,0,4);
-      $kvartalm = substr($obj->pck[0]->date,5,2);
-      if ($kvartalm=='01') $kvartal='1'; if ($kvartalm=='04') $kvartal='2'; if ($kvartalm=='07') $kvartal='3'; if ($kvartalm=='10') $kvartal='4';
+          echo $obj;
+
 		  $i=0;
 		  $menu1=''; 
 		  
@@ -142,7 +140,7 @@ if (isset($_GET['update'])) {
 		  .$obj->pck[$i]->j1.','.$obj->pck[$i]->j2.','.$obj->pck[$i]->j3.','.$obj->pck[$i]->j11.','.$obj->pck[$i]->j12.','.$obj->pck[$i]->j13.','
 		  .$obj->pck[$i]->j21.','.$obj->pck[$i]->j22.','.$obj->pck[$i]->j23.','			
 		  .$obj->pck[$i]->k0.','.$obj->pck[$i]->k1.','.$obj->pck[$i]->k2.','.$obj->pck[$i]->k3.','.$obj->pck[$i]->k4.','.$obj->pck[$i]->k5.','.$obj->pck[$i]->k6.','.$obj->pck[$i]->k7.','.$obj->pck[$i]->k8.','.$obj->pck[$i]->k9.','.$obj->pck[$i]->k10.','
-		  .$obj->pck[$i]->l1.','.$obj->pck[$i]->l2.','.$obj->pck[$i]->l3.','.$obj->pck[$i]->l11.','.$obj->pck[$i]->l12.','.$obj->pck[$i]->l13.','.$obj->pck[$i]->l21.','.$obj->pck[$i]->l22.','.$obj->pck[$i]->l23.','.'0';
+		  .$obj->pck[$i]->l1.','.$obj->pck[$i]->l2.','.$obj->pck[$i]->l11.','.$obj->pck[$i]->l12.','.$obj->pck[$i]->l21.','.$obj->pck[$i]->l22.','.'0';
 			
 		  if ($i<1) { 
 		  
@@ -176,7 +174,7 @@ if (isset($_GET['update'])) {
        <div class="col-lg-12"><!-- i0 -->
 	   		<p></p>
 			<div id="card_i1" class="card border bg-dark text-white  rounded" >
-			<div  class="card-header text-center"> <h4> АНАЛИТИКА<br>численности и заработной платы<br>за <?echo $gods-2?> – <?echo $gods?> гг <br>по состоянию за 2 квартал</h4> </div>
+			<div  class="card-header text-center"> <h4> АНАЛИТИКА<br>численности<br>и<br>заработной платы<br>за 2021 – 2023 гг</h4> </div>
 			 
 			</div>	
 			<p></p>	  
@@ -196,14 +194,14 @@ if (isset($_GET['update'])) {
 					<td><center><p>Все работники <br> (за исключением АУП)</p></center></td>
 				  </tr>
 				  <tr>
-					<td colspan="2" align="center"><h5>2 квартал <?echo $gods-1?> года</h5></td>
+					<td colspan="2" align="center"><h5>1 квартал 2022 года</h5></td>
 				  </tr>				  
 				  <tr>
 					<td><center><h3 id="i1"> <animated-integer :value="i1"></animated-integer> </h3></center></td>
 					<td><center><h3 id="i2"> <animated-integer :value="i2"></animated-integer> </h3></center></td>
 				  </tr>
 				  <tr>
-					<td colspan="2" align="center"><h5>2 квартал <?echo $gods?> года</h5></td>
+					<td colspan="2" align="center"><h5>1 квартал 2023 года</h5></td>
 				  </tr>				  
 				  <tr>
 					<td><center><h3 id="i3"> <animated-integer :value="i3"></animated-integer> </h3></center></td>
@@ -264,7 +262,7 @@ if (isset($_GET['update'])) {
        <div class="col-lg-4"><!-- c -->
 			<p></p>
 			<div class="card border bg-dark text-white  rounded" >
-			<div  class="card-header text-center"> <h4 id="tec"> Текучесть за <?echo $gods?> год, чел.</h4></div>
+			<div  class="card-header text-center"> <h4 id="tec"> Текучесть за 2023 год, чел.</h4></div>
 				<table text-align="center" style="width:100%">
 				  <tr>
 					<td><center><h5>Назначено</h5></center></td>
@@ -484,14 +482,9 @@ const vm = app.mount('#container2')
 
 
 	<script>
-    function Paint1(name,a1,a2,b1,b2,b3,i1,i2,i11,i12,c1,c2,d1,e1,e2,f1,f2,f11,f12,f21,f22,g1,g2,g11,g12,g21,g22,h1,h2,h3,h4,h5,h11,h12,h13,h14,h15,h21,h22,h23,h24,h25,j1,j2,j3,j11,j12,j13,j21,j22,j23,k0,k1,k2,k3,k4,k5,k6,k7,k8,k9,k10,l1,l2,l3,l11,l12,l13,l21,l22,l23,tmp0)
+    function Paint1(name,a1,a2,b1,b2,b3,i1,i2,i11,i12,c1,c2,d1,e1,e2,f1,f2,f11,f12,f21,f22,g1,g2,g11,g12,g21,g22,h1,h2,h3,h4,h5,h11,h12,h13,h14,h15,h21,h22,h23,h24,h25,j1,j2,j3,j11,j12,j13,j21,j22,j23,k0,k1,k2,k3,k4,k5,k6,k7,k8,k9,k10,l1,l2,l11,l12,l21,l22,tmp0)
 	{
-  //var dataxml=<?echo "'".$obj->pck[0]->date."'"?> 
-  //var gods=dataxml.substr(0,4);
-  //var kvartalm=dataxml.substr(5,2);
-  //var kvartal='1';
-  //if (kvartalm=='01') kvartal='1'; if (kvartalm=='04') kvartal='2'; if (kvartalm=='07') kvartal='3'; if (kvartalm=='10') kvartal='4';
-	//debugger;
+		//debugger;
 	document.getElementById('name1').innerHTML = name;
 	document.getElementById('a1').innerHTML = numberWithSpaces(a1);
 	document.getElementById('a2').innerHTML = numberWithSpaces(a2);
@@ -513,8 +506,7 @@ const vm = app.mount('#container2')
 	PaintChart3(h1,h2,h3,h4,h5,h11,h12,h13,h14,h15,h21,h22,h23,h24,h25);
 	PaintChart4(j1,j2,j3,j11,j12,j13,j21,j22,j23);
 	PaintChart5(k0,k1,k2,k3,k4,k5,k6,k7,k8,k9,k10);
-	PaintChart6(l1,l2,l3,l11,l12,l13,l21,l21,l22,l23);
-  
+	PaintChart6(l1,l2,l11,l12,l21,l22);	
     }
 	
    function numberWithSpaces(x) {
@@ -631,8 +623,7 @@ function PaintChart5(k0,k1,k2,k3,k4,k5,k6,k7,k8,k9,k10) {
 			label: {
               content: numberWithSpaces(k0)+' руб.',
               enabled: true,
-              position: "center",
-              xAdjust: 40,
+              position: "center"
             }
           },
 		  {
@@ -692,10 +683,9 @@ function PaintChart5(k0,k1,k2,k3,k4,k5,k6,k7,k8,k9,k10) {
    Chart5.update();
   // debugger;
 };
-function PaintChart6(l1,l2,l3,l11,l12,l13,l21,l22,l23) {
+function PaintChart6(l1,l2,l11,l12,l21,l22) {
    Chart6.data.datasets[1].data = [l21,l11,l1];
    Chart6.data.datasets[0].data = [l22,l12,l2];
-   Chart6.data.datasets[2].data = [l23,l13,l3];
    Chart6.update();
    //debugger;
 };

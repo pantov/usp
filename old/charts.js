@@ -4,8 +4,8 @@ const $ctx1 = document.querySelector("#Chart1");;
 Chart1 = new Chart($ctx1, {
     type: 'bar',
     data: {
-        labels: ['2021', '2022', '2023'], 
-            datasets: [{
+        labels: ['2021', '2022', '2023'],
+        datasets: [{
             label: '1',
             data: [107,105,100],
             backgroundColor: '#fe5f35',
@@ -413,7 +413,7 @@ Chart4 = new Chart($ctx4, {
 			"yAxisID":"left"
         },
 		{
-            label: ' - бюджет   ',
+            label: ' - бюджет    ',
             data: [88,87,82],
             backgroundColor: '#fe5f35',
             borderColor:   '#fe5f35',
@@ -478,7 +478,7 @@ Chart4 = new Chart($ctx4, {
             type: "line",
             mode: "horizontal",
             scaleID: "left",
-            value: 0,
+            value: 1,
             borderColor: '#2FA6DA',
 			borderWidth: 3,
           }
@@ -520,13 +520,13 @@ Chart4 = new Chart($ctx4, {
 });	
 //
 var chartData = {
-    labels: ['до 21', '21-25', '26-30', '31-35','36-40','40-45','45-50','50-60','60-70','от 71'],
+    labels: ['до 21', '21-25', '26-30', '31-35','36-40','36-40','40-45','50-60','60-70','от 71'],
 };
 const $ctx5 = document.querySelector("#Chart5");
 Chart5 = new Chart($ctx5, {
     type: "line",
     data: {
-  labels: ['до 21', '21-25', '26-30', '31-35','36-40','40-45','50-60','60-70','от 71'],
+  labels: ['до 21', '21-25', '26-30', '31-35','36-40','36-40','40-45','50-60','60-70','от 71'],
   datasets: [
     {
       data: [{x: 1, y: 12}, {x: 2, y: 3}, {x: 3, y: 2}, {x: 4, y: 1}, {x: 5, y: 8},{x: 6, y: 12}, {x: 7, y: 3}, {x: 8, y: 2}, {x: 9, y: 1}, {x: 10, y: 8}],
@@ -683,15 +683,6 @@ Chart6 = new Chart($ctx6, {
             borderColor:   '#fe5f35',
             borderWidth: 1,
 			"yAxisID":"left"
-        },
-        {
-            label: '3',
-            hidden: true,
-            data: [88,87,82],
-            backgroundColor: '#fe5f35',
-            borderColor:   '#fe5f35',
-            borderWidth: 1,
-			"yAxisID":"left"
         }]
     },
     options: {
@@ -713,8 +704,7 @@ Chart6 = new Chart($ctx6, {
                             scale_max = dataset._meta[Object.keys(dataset._meta)[0]].data[i]._yScale.maxHeight;
                         ctx.fillStyle = 'white';
                         var y_pos = model.y - 5;
-                       // var procent  = this.data.datasets[2];
-						debugger;
+						//debugger;
                         if ((scale_max - model.y) / scale_max >= 0.93)
                             y_pos = model.y + 25; 
 						if (dataset.label=="%")	{
@@ -723,11 +713,7 @@ Chart6 = new Chart($ctx6, {
                         }
 						if (dataset.label=="2") {
                          // if (dataset.data[i]>0) 	
-                          ctx.fillText(dataset.data[i], model.x, y_pos);
-                        }
-                        if (dataset.label=="3") {
-                            y_pos = scale_max - 3;
-                            ctx.fillText(dataset.data[i]+" %", model.x+ 75, y_pos);
+                          ctx.fillText(dataset.data[i]+" %", model.x, y_pos);
                     }
                     }
                 });               
